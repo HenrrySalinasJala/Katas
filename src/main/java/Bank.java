@@ -5,27 +5,33 @@ import java.util.regex.Pattern;
 public class Bank {
 
 
-    String regexZero = "( \\_ \\| \\|\\|\\_\\|)";
+    private static final String ILLEGIBLE = "ILL";
 
-    String regexOne = "(     \\|  \\|)";
+    private static final String INVALID_ACCOUNT = "ERR";
 
-    String regexTwo = "( \\_  \\_\\|\\|\\_ )";
+    private static final String UNKNOW_SYMBOL = "?";
 
-    String regexThree = "( \\_  \\_\\| \\_\\|)";
+    private String regexZero = "( \\_ \\| \\|\\|\\_\\|)";
 
-    String regexFour = "(   \\|\\_\\|  \\|)";
+    private String regexOne = "(     \\|  \\|)";
 
-    String regexFive = "( \\_ \\|\\_  \\_\\|)";
+    private String regexTwo = "( \\_  \\_\\|\\|\\_ )";
 
-    String regexSix = "( \\_ \\|\\_ \\|\\_\\|)";
+    private String regexThree = "( \\_  \\_\\| \\_\\|)";
 
-    String regexSeven = "( \\_   \\|  \\|)";
+    private String regexFour = "(   \\|\\_\\|  \\|)";
 
-    String regexEight = "( \\_ \\|\\_\\|\\|\\_\\|)";
+    private String regexFive = "( \\_ \\|\\_  \\_\\|)";
 
-    String regexNine = "( \\_ \\|\\_\\| \\_\\|)";
+    private String regexSix = "( \\_ \\|\\_ \\|\\_\\|)";
 
-    Map<String, Integer> listRegex = new HashMap<String, Integer>();
+    private String regexSeven = "( \\_   \\|  \\|)";
+
+    private String regexEight = "( \\_ \\|\\_\\|\\|\\_\\|)";
+
+    private String regexNine = "( \\_ \\|\\_\\| \\_\\|)";
+
+    private static final Map<String, Integer> listRegex = new HashMap<String, Integer>();
 
     private static final int NUMBER_SIZE = 3;
 
@@ -67,17 +73,19 @@ public class Bank {
         for (int i = 1; i <= ENTRY_SIZE / NUMBER_SIZE; i++) {
             result += parseStringToNumber(parseMatrixNumberToString(i, matrixNumbers));
         }
-        return result;//replace ? intead of -1
+        return result;
     }
-    public String formatAccountNumbers(String accountNumber){
+
+    public String formatAccountNumbers(String accountNumber) {
         String result = "";
-        if(accountNumber.contains("?")){
-            result=String.format("%s %s",accountNumber,"ILL");
-        }else if(!isValidAccount(Integer.parseInt(accountNumber))){
-            result=String.format("%s %s",accountNumber,"ERR");
+        if (accountNumber.contains(UNKNOW_SYMBOL)) {
+            result = String.format("%s %s", accountNumber, ILLEGIBLE);
+        } else if (!isValidAccount(Integer.parseInt(accountNumber))) {
+            result = String.format("%s %s", accountNumber, INVALID_ACCOUNT);
         }
         return result;
     }
+
     public String parseMatrixNumberToString(int numWanted, String[][] matrixNumbers) {
         String stringNumber = "";
         int end = numWanted > 0 ? numWanted * NUMBER_SIZE : NUMBER_SIZE;
@@ -91,13 +99,12 @@ public class Bank {
     }
 
     public String parseStringToNumber(String stringNumber) {
-        String value = "?";//replace with ? for story three
         for (String pattern : listRegex.keySet()) {
             if (Pattern.compile(pattern).matcher(stringNumber).find()) {
                 return listRegex.get(pattern).toString();
             }
         }
-        return value;
+        return UNKNOW_SYMBOL;
     }
 
     public boolean isValidAccount(int account) {
