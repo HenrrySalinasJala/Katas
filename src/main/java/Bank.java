@@ -67,7 +67,7 @@ public class Bank {
         for (int i = 1; i <= ENTRY_SIZE / NUMBER_SIZE; i++) {
             result += parseStringToNumber(parseMatrixNumberToString(i, matrixNumbers));
         }
-        return Integer.parseInt(result);
+        return Integer.parseInt(result);//replace ? intead of -1
     }
 
     public String parseMatrixNumberToString(int numWanted, String[][] matrixNumbers) {
