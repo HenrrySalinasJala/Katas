@@ -46,7 +46,7 @@ public class Bank {
         listRegex.put(regexNine, 9);
     }
 
-    public int readEntry(String entry) {
+    public String readEntry(String entry) {
         String[][] matrixNumbers = new String[ENTRY_ROWS][ENTRY_SIZE];
         String[] arrayEntry = entry.split("");
         int row = 0;
@@ -62,14 +62,22 @@ public class Bank {
         return readEntryNumbers(matrixNumbers);
     }
 
-    public int readEntryNumbers(String[][] matrixNumbers) {
+    public String readEntryNumbers(String[][] matrixNumbers) {
         String result = "";
         for (int i = 1; i <= ENTRY_SIZE / NUMBER_SIZE; i++) {
             result += parseStringToNumber(parseMatrixNumberToString(i, matrixNumbers));
         }
-        return Integer.parseInt(result);//replace ? intead of -1
+        return result;//replace ? intead of -1
     }
-
+    public String formatAccountNumbers(String accountNumber){
+        String result = "";
+        if(accountNumber.contains("?")){
+            result=String.format("%s %s",accountNumber,"ILL");
+        }else if(!isValidAccount(Integer.parseInt(accountNumber))){
+            result=String.format("%s %s",accountNumber,"ERR");
+        }
+        return result;
+    }
     public String parseMatrixNumberToString(int numWanted, String[][] matrixNumbers) {
         String stringNumber = "";
         int end = numWanted > 0 ? numWanted * NUMBER_SIZE : NUMBER_SIZE;
@@ -82,11 +90,11 @@ public class Bank {
         return stringNumber;
     }
 
-    public int parseStringToNumber(String stringNumber) {
-        int value = -1;//replace with ? for story three
+    public String parseStringToNumber(String stringNumber) {
+        String value = "?";//replace with ? for story three
         for (String pattern : listRegex.keySet()) {
             if (Pattern.compile(pattern).matcher(stringNumber).find()) {
-                return listRegex.get(pattern);
+                return listRegex.get(pattern).toString();
             }
         }
         return value;
