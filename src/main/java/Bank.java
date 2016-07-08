@@ -102,13 +102,13 @@ public class Bank {
 
     public boolean isValidAccount(int account) {
 
-        int remainNumber = Math.abs(account) / 10;
-        int lastNumber = Math.abs(account) % 10;
+        int remainNumber = account / 10;
+        int lastNumber = account % 10;
         int index = 2;
-        long checksum = lastNumber;
+        int checksum = lastNumber;
         while (remainNumber >= 1) {
-            lastNumber = Math.abs(remainNumber) % 10;
-            remainNumber = Math.abs(remainNumber) / 10;
+            lastNumber = remainNumber % 10;
+            remainNumber = remainNumber / 10;
             checksum += (lastNumber * index);
             index++;
         }
