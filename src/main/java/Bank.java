@@ -3,8 +3,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Bank {
-    
-    private static final int NUMBER_SIZE = 3;
+
 
     String regexZero = "( \\_ \\| \\|\\|\\_\\|)";
 
@@ -27,6 +26,8 @@ public class Bank {
     String regexNine = "( \\_ \\|\\_\\| \\_\\|)";
 
     Map<String, Integer> listRegex = new HashMap<String, Integer>();
+
+    private static final int NUMBER_SIZE = 3;
 
     public static final int ENTRY_ROWS = 4;
 
@@ -63,14 +64,13 @@ public class Bank {
 
     public int readEntryNumbers(String[][] matrixNumbers) {
         String result = "";
-
         for (int i = 1; i <= ENTRY_SIZE / NUMBER_SIZE; i++) {
-            result += parseStringToNumber(getStringNumber(i, matrixNumbers));
+            result += parseStringToNumber(parseMatrixNumberToString(i, matrixNumbers));
         }
         return Integer.parseInt(result);
     }
 
-    public String getStringNumber(int numWanted, String[][] matrixNumbers) {
+    public String parseMatrixNumberToString(int numWanted, String[][] matrixNumbers) {
         String stringNumber = "";
         int end = numWanted > 0 ? numWanted * NUMBER_SIZE : NUMBER_SIZE;
         int start = end - NUMBER_SIZE;
@@ -83,7 +83,7 @@ public class Bank {
     }
 
     public int parseStringToNumber(String stringNumber) {
-        int value = -1;
+        int value = -1;//replace with ? for story three
         for (String pattern : listRegex.keySet()) {
             if (Pattern.compile(pattern).matcher(stringNumber).find()) {
                 return listRegex.get(pattern);
@@ -97,14 +97,13 @@ public class Bank {
         int remainNumber = Math.abs(account) / 10;
         int lastNumber = Math.abs(account) % 10;
         int index = 2;
-        long sum = lastNumber;
+        long checksum = lastNumber;
         while (remainNumber >= 1) {
             lastNumber = Math.abs(remainNumber) % 10;
             remainNumber = Math.abs(remainNumber) / 10;
-            sum += (lastNumber * index);
+            checksum += (lastNumber * index);
             index++;
         }
-        boolean valid = sum % 11 == 0 ? true : false;
-        return valid;
+        return checksum % 11 == 0 ? true : false;
     }
 }
