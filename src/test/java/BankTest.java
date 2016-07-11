@@ -68,8 +68,8 @@ public class BankTest {
     }
     @Test
     public void testEntryReadInvalidAccount(){
-        final String entry="103486789";
-        final String expectedNum = "103486789 ERR";
+        final String entry="345882864";
+        final String expectedNum = "345882864 ERR";
         assertEquals(expectedNum,ocr.formatAccountNumbers(entry));
 
     }
