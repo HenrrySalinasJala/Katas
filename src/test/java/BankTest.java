@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -5,52 +6,89 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class BankTest {
-    
+    private Bank ocr;
+    @Before
+    public void setUp(){
+        ocr=new Bank();
+    }
     @Test
     public void testParseTxtumbersToString(){
-        String line1=" _ "+
+        final String line1=
+                " _ "+
                 "|_|"+
                 "|_|";
-        Bank ocr=new Bank();
-        assertEquals(8,ocr.parseStringToNumber(line1));
+        final String expectedNum = "8";
+        assertEquals(expectedNum,ocr.parseStringToNumber(line1));
         
     }
     @Test
     public void testParseTxt(){
-        String line1=" _ "+
+        final String line1=
+                " _ "+
                 "  |"+
                 "  |";
-        Bank ocr=new Bank();
-        assertEquals(7,ocr.parseStringToNumber(line1));
+        final String expectedNum = "7";
+        assertEquals(expectedNum,ocr.parseStringToNumber(line1));
         
     }
     @Test
     public void testEntryNumber(){
-        String entry="    _  _     _  _  _  _  _ " +
-                     "  | _| _||_||_ |_   ||_||_|" +
-                     "  ||_  _|  | _||_|  ||_| _|"+
-                     "                           ";
-        
-        Bank ocr=new Bank();
-        assertEquals(123456789,ocr.readEntry(entry));
+        final String entry=
+                "    _  _     _  _  _  _  _ " +
+                "  | _| _||_||_ |_   ||_||_|" +
+                "  ||_  _|  | _||_|  ||_| _|" +
+                "                           ";
+        final String expectedNum = "123456789";
+        assertEquals(expectedNum,ocr.readEntry(entry));
         
     }
     @Test
     public void testEntryRead(){
-        String entry="    _  _     _  _  _  _  _ " +
-                     "  || | _||_||_||_   ||_||_|" +
-                     "  ||_| _|  ||_||_|  ||_| _|"+
-                     "                           ";
-        
-        Bank ocr=new Bank();
-        assertEquals(103486789,ocr.readEntry(entry));
+        final String entry=
+                "    _  _     _  _  _  _  _ " +
+                "  || | _||_||_||_   ||_||_|" +
+                "  ||_| _|  ||_||_|  ||_| _|" +
+                "                           ";
+
+        final String expectedNum = "103486789";
+        assertEquals(expectedNum,ocr.readEntry(entry));
         
     }
     @Test
+    public void testEntryReadUnknow(){
+        final String entry=
+                "    _  _     _  _  _  _  _ " +
+                "  || | _||_||_||_   ||_||_|" +
+                "  ||_| _|  ||_|| |  ||_| _|" +
+                "                           ";
+
+        final String expectedNum = "10348?789";
+        assertEquals(expectedNum,ocr.readEntry(entry));
+
+    }
+    @Test
+    public void testEntryReadInvalidAccount(){
+        final String entry="103486789";
+        final String expectedNum = "103486789 ERR";
+        assertEquals(expectedNum,ocr.formatAccountNumbers(entry));
+
+    }
+    @Test
+    public void testEntryOutputFormat(){
+        final String entry="10348?789";
+        final String expectedNum = "10348?789 ILL";
+        assertEquals(expectedNum,ocr.formatAccountNumbers(entry));
+
+    }
+    @Test
     public void testIsValidAccount(){
-        int account=345882865;
-        Bank ocr=new Bank();
+        final int account=345882865;
         assertTrue(ocr.isValidAccount(account));
-        assertFalse(ocr.isValidAccount(345882864));
+
+    }
+    @Test
+    public void testIsNotValidAccount(){
+        final int account=345882864;
+        assertFalse(ocr.isValidAccount(account));
     }
 }
