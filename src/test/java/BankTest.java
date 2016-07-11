@@ -50,7 +50,7 @@ public class BankTest {
                 "  ||_| _|  ||_||_|  ||_| _|" +
                 "                           ";
 
-        final String expectedNum = "103486789";
+        final String expectedNum = "103486789 ERR";
         assertEquals(expectedNum,ocr.readEntry(entry));
         
     }
@@ -62,7 +62,7 @@ public class BankTest {
                 "  ||_| _|  ||_|| |  ||_| _|" +
                 "                           ";
 
-        final String expectedNum = "10348?789";
+        final String expectedNum = "10348?789 ILL";
         assertEquals(expectedNum,ocr.readEntry(entry));
 
     }

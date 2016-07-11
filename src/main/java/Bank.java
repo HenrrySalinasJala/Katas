@@ -65,7 +65,7 @@ public class Bank {
             matrixNumbers[row][col] = arrayEntry[arrayIndex];
             col++;
         }
-        return readEntryNumbers(matrixNumbers);
+        return formatAccountNumbers(readEntryNumbers(matrixNumbers));
     }
 
     public String readEntryNumbers(String[][] matrixNumbers) {
@@ -82,6 +82,8 @@ public class Bank {
             result = String.format("%s %s", accountNumber, ILLEGIBLE);
         } else if (!isValidAccount(Integer.parseInt(accountNumber))) {
             result = String.format("%s %s", accountNumber, INVALID_ACCOUNT);
+        }else{
+            result=accountNumber;
         }
         return result;
     }
