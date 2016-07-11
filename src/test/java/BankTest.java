@@ -12,7 +12,7 @@ public class BankTest {
         ocr=new Bank();
     }
     @Test
-    public void testParseTxtumbersToString(){
+    public void testParseStringToNumber1(){
         final String line1=
                 " _ "+
                 "|_|"+
@@ -22,7 +22,7 @@ public class BankTest {
         
     }
     @Test
-    public void testParseTxt(){
+    public void testParseStringToNumber2(){
         final String line1=
                 " _ "+
                 "  |"+
@@ -32,7 +32,7 @@ public class BankTest {
         
     }
     @Test
-    public void testEntryNumber(){
+    public void testReadEntry(){
         final String entry=
                 "    _  _     _  _  _  _  _ " +
                 "  | _| _||_||_ |_   ||_||_|" +
@@ -43,7 +43,7 @@ public class BankTest {
         
     }
     @Test
-    public void testEntryRead(){
+    public void testEntryReadErrorAccount(){
         final String entry=
                 "    _  _     _  _  _  _  _ " +
                 "  || | _||_||_||_   ||_||_|" +
