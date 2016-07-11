@@ -32,7 +32,7 @@ namespace Kata
         public List<int> searchText(string text, string pattern, bool behind)
         {
             List<int> list = new List<int>();
-            if (pattern!="" && text!="")
+            if (!String.IsNullOrEmpty(pattern) && !String.IsNullOrEmpty(text))
             {
                 Regex num = new Regex(pattern);
                 foreach (Match match in Regex.Matches(text, pattern))
@@ -50,10 +50,6 @@ namespace Kata
                 }
             }
             return list;
-        }
-
-        public static void Main()
-        {
         }
     }
 }
