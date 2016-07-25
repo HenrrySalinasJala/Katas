@@ -22,15 +22,16 @@ public class Bank {
 
     private static String regexEight = "( \\_ \\|\\_\\|\\|\\_\\|)";
 
-    private static  String regexNine = "( \\_ \\|\\_\\| \\_\\|)";
+    private static String regexNine = "( \\_ \\|\\_\\| \\_\\|)";
 
     private static final Map<String, Integer> listRegex = new HashMap<String, Integer>();
-    
+
     private static final String ILLEGIBLE = "ILL";
 
     private static final String INVALID_ACCOUNT = "ERR";
 
     private static final String UNKNOW_SYMBOL = "?";
+
     static {
         listRegex.put(regexZero, 0);
         listRegex.put(regexOne, 1);
@@ -43,6 +44,7 @@ public class Bank {
         listRegex.put(regexEight, 8);
         listRegex.put(regexNine, 9);
     }
+
     private static final int NUMBER_SIZE = 3;
 
     public static final int ENTRY_ROWS = 4;
