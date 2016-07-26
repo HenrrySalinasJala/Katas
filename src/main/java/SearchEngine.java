@@ -7,8 +7,7 @@ import java.util.regex.Pattern;
 public class SearchEngine {
     public static int find(String needle, String haystack) {
         int index = -1;
-        String x = Pattern.quote(needle).replace("_", "\\E.\\Q");
-        Matcher matcher = Pattern.compile(x).matcher(haystack);
+        Matcher matcher = Pattern.compile(Pattern.quote(needle).replace("_", "\\E.\\Q")).matcher(haystack);
         while (matcher.find()) {
             index = matcher.start();
             break;
