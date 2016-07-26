@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Henrry Salinas on 7/25/2016.
  */
 public class WildsTest {
-    String haystack = "Once upon a midnight dreary, while I pondered, weak and weary";
+    String haystack = "Once upon a midnight dreary, while I pondered, weak and weary fifth$ with say, stray, stay sin.uno sin$uno  sin_uno sin-uno";
     @Test
     public void normalSearchTest(){
         assertEquals(0,SearchEngine.find("Once", haystack));
@@ -15,5 +15,7 @@ public class WildsTest {
     public void wildSearchTest(){
         assertEquals(5, SearchEngine.find("_po_", haystack));
         assertEquals(12, SearchEngine.find("___night", haystack));
+
+
     }
 }
